@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0E1D6519-2143-4B74-B4B7-26514C6EB420}</ProjectGuid>
+    <RootNamespace>nostalgicgames</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\SDK\sfml2\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>C:\SDK\sfml2\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>NG_DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\managers\FontManager.h" />
+    <ClInclude Include="src\managers\TextureManager.h" />
+    <ClInclude Include="src\managers\ResourceBase.h" />
+    <ClInclude Include="src\managers\State.h" />
+    <ClInclude Include="src\managers\StateManager.h" />
+    <ClInclude Include="src\managers\StringManager.h" />
+    <ClInclude Include="src\ng\Logger.h" />
+    <ClInclude Include="src\ng\Singleton.h" />
+    <ClInclude Include="src\ng\Utils.h" />
+    <ClInclude Include="src\ng\VisualObject.h" />
+    <ClInclude Include="src\states\breakout\BreakoutAboutState.h" />
+    <ClInclude Include="src\states\breakout\BreakoutPauseState.h" />
+    <ClInclude Include="src\states\breakout\BreakoutReadyState.h" />
+    <ClInclude Include="src\states\breakout\BreakoutState.h" />
+    <ClInclude Include="src\states\breakout\BreakoutStateLevels.h" />
+    <ClInclude Include="src\states\intro\IntroState.h" />
+    <ClInclude Include="src\states\login\LoginState.h" />
+    <ClInclude Include="src\states\menu\MenuState.h" />
+    <ClInclude Include="src\xml\rapidxml.hpp" />
+    <ClInclude Include="src\xml\rapidxml_iterators.hpp" />
+    <ClInclude Include="src\xml\rapidxml_print.hpp" />
+    <ClInclude Include="src\xml\rapidxml_utils.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\managers\FontManager.cpp" />
+    <ClCompile Include="src\managers\TextureManager.cpp" />
+    <ClCompile Include="src\managers\StateManager.cpp" />
+    <ClCompile Include="src\managers\StringManager.cpp" />
+    <ClCompile Include="src\ng\main.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">SFML_DYNAMIC;NG_DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="src\ng\Utils.cpp" />
+    <ClCompile Include="src\ng\VisualObject.cpp" />
+    <ClCompile Include="src\states\breakout\BreakoutAboutState.cpp" />
+    <ClCompile Include="src\states\breakout\BreakoutPauseState.cpp" />
+    <ClCompile Include="src\states\breakout\BreakoutReadyState.cpp" />
+    <ClCompile Include="src\states\breakout\BreakoutState.cpp" />
+    <ClCompile Include="src\states\intro\IntroState.cpp" />
+    <ClCompile Include="src\states\login\LoginState.cpp" />
+    <ClCompile Include="src\states\menu\MenuState.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

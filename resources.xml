@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!DOCTYPE resources [
+  <!ELEMENT resources   (images,sounds,fonts)>
+  <!ELEMENT images      (image)>
+  <!ELEMENT sounds      (sound)>
+  <!ELEMENT fonts       (font)>
+  <!ELEMENT image       (#PCDATA)>
+  <!ELEMENT sound       (#PCDATA)>
+  <!ELEMENT font        (#PCDATA)>
+  <!ATTLIST image       name CDATA #REQUIRED>
+  <!ATTLIST image       path CDATA #REQUIRED>
+  <!ATTLIST sound       name CDATA #REQUIRED>
+  <!ATTLIST sound       path CDATA #REQUIRED>
+  <!ATTLIST font        name CDATA #REQUIRED>
+  <!ATTLIST font        path CDATA #REQUIRED>
+]>
+<resources>
+  <images>
+    <image name="breakout" path="media/images/breakout.png"></image>
+    <image name="breakout-powerups" path="media/images/powerups.png"></image>
+    <image name="breakout-space01" path="media/images/space01.jpg"></image>
+  </images>
+  <sounds>
+    <sound name="lazer" path="media/sounds/lazer.wav"></sound>
+    <sound name="lazer2" path="media/sounds/lazer2.wav"></sound>
+    <sound name="pong" path="media/sounds/pong.wav"></sound>
+  </sounds>
+  <fonts>
+    <font name="arial" path="media/fonts/arial.ttf"></font>
+  </fonts>
+</resources>
