@@ -23,7 +23,7 @@ namespace ng {
 
 FloatRect VisualObject::Rect() const
 {
-	return FloatRect(mSprite.GetPosition().x, mSprite.GetPosition().y, mSprite.GetPosition().x + mSprite.GetGlobalBounds().Width, mSprite.GetPosition().y + mSprite.GetGlobalBounds().Height);
+    return FloatRect(mSprite.getPosition().x, mSprite.getPosition().y, mSprite.getPosition().x + mSprite.getGlobalBounds().width, mSprite.getPosition().y + mSprite.getGlobalBounds().height);
 }
 
 	void VisualObject::SetCorners(float ne, float nw, float sw, float se)
@@ -52,18 +52,18 @@ FloatRect VisualObject::Rect() const
 	bool VisualObject::IsBallOverlappingBall(const VisualObject& object)
 	{
 		// FIXME: Optimizations
-		float dx = object.mSprite.GetPosition().x - mSprite.GetPosition().x;
-		float dy = object.mSprite.GetPosition().y - mSprite.GetPosition().y;
-		return std::sqrt(dx * dx + dy * dy) <= mSprite.GetGlobalBounds().Width / 2 + object.mSprite.GetGlobalBounds().Width / 2;
+        float dx = object.mSprite.getPosition().x - mSprite.getPosition().x;
+        float dy = object.mSprite.getPosition().y - mSprite.getPosition().y;
+        return std::sqrt(dx * dx + dy * dy) <= mSprite.getGlobalBounds().width / 2 + object.mSprite.getGlobalBounds().width / 2;
 	}
 
 	void VisualObject::ProcessBallImpactWithBall(VisualObject& object)
 	{
 		// FIXME: Optimizations
-		float dx = object.mSprite.GetPosition().x - mSprite.GetPosition().x;
-		float dy = object.mSprite.GetPosition().y - mSprite.GetPosition().y;
+        float dx = object.mSprite.getPosition().x - mSprite.getPosition().x;
+        float dy = object.mSprite.getPosition().y - mSprite.getPosition().y;
 		float d = std::sqrt(dx * dx + dy * dy);
-		float impact_distance = mSprite.GetGlobalBounds().Width / 2 + object.mSprite.GetGlobalBounds().Width / 2;
+        float impact_distance = mSprite.getGlobalBounds().width / 2 + object.mSprite.getGlobalBounds().width / 2;
 
 		// calculate the velocity in the direction of (dx,dy)
 		float vp_a = (Velocity.x * dx + Velocity.y * dy) / d;
@@ -73,11 +73,11 @@ FloatRect VisualObject::Rect() const
 		float dt = (impact_distance - d) / (vp_a - vp_b);
 
 		// move balls backward one step
-		mSprite.Move(-Velocity.x * dt, -Velocity.y * dt);
-		object.mSprite.Move(-object.Velocity.x * dt, -object.Velocity.y * dt);
+        mSprite.move(-Velocity.x * dt, -Velocity.y * dt);
+        object.mSprite.move(-object.Velocity.x * dt, -object.Velocity.y * dt);
 
-		dx = object.mSprite.GetPosition().x - mSprite.GetPosition().x;
-		dy = object.mSprite.GetPosition().y - mSprite.GetPosition().y;
+        dx = object.mSprite.getPosition().x - mSprite.getPosition().x;
+        dy = object.mSprite.getPosition().y - mSprite.getPosition().y;
 		d = sqrt(dx * dx + dy * dy);
 
 		// calculate the components of velocity
@@ -97,19 +97,19 @@ FloatRect VisualObject::Rect() const
 		object.Velocity.y = vp_a * an - vn_b * ap;
 
 		// move the balls forward one step
-		mSprite.Move(Velocity.x * dt, Velocity.y * dt);
-		object.mSprite.Move(object.Velocity.x * dt, object.Velocity.y * dt);
+        mSprite.move(Velocity.x * dt, Velocity.y * dt);
+        object.mSprite.move(object.Velocity.x * dt, object.Velocity.y * dt);
 	}
 
 	void VisualObject::UpdateDestination(float frametime)
 	{
-		mDestination = mSprite.GetPosition() + Velocity * frametime;
+        mDestination = mSprite.getPosition() + Velocity * frametime;
 	}
 
 	void VisualObject::MoveToDestination()
 	{
-		LastPosition = mSprite.GetPosition();
-		mSprite.SetPosition(mDestination);
+        LastPosition = mSprite.getPosition();
+        mSprite.setPosition(mDestination);
 	}
 
 } // namespace ng

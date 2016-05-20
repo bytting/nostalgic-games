@@ -26,9 +26,9 @@ void BreakoutReadyState::Enter(RenderWindow& window)
 {
     Font& font = fontManager["arial"];
 
-	text.SetFont(font);
-	text.SetCharacterSize(20);
-	text.SetColor(Color(255, 128, 0));
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setColor(Color(255, 128, 0));
 }
 
 void BreakoutReadyState::Exit(RenderWindow& window)
@@ -45,7 +45,7 @@ void BreakoutReadyState::Resume()
 
 void BreakoutReadyState::KeyPressed(Event& event)
 {
-	switch(event.Key.Code)
+    switch(event.key.code)
 	{
 	case Keyboard::Space:
 		PopState();
@@ -60,10 +60,10 @@ void BreakoutReadyState::KeyReleased(Event& event)
 
 bool BreakoutReadyState::FrameRender(RenderWindow& window, float frametime)
 {
-    text.SetString("Press SPACE when you are ready for next level");
-	text.SetCharacterSize(20);
-	text.SetPosition(window.GetWidth() / 2 - text.GetGlobalBounds().Width / 2, 120);
-	window.Draw(text);
+    text.setString("Press SPACE when you are ready for next level");
+    text.setCharacterSize(20);
+    text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 120);
+    window.draw(text);
 
 	return false;
 }

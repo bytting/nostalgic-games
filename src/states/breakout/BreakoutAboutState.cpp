@@ -27,9 +27,9 @@ void BreakoutAboutState::Enter(RenderWindow& window)
 {
 	Font& font = fontManager["arial"];
 
-	text.SetFont(font);
-	text.SetCharacterSize(20);
-	text.SetColor(Color(255, 128, 0));
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setColor(Color(255, 128, 0));
 }
 
 void BreakoutAboutState::Exit(RenderWindow& window)
@@ -46,12 +46,11 @@ void BreakoutAboutState::Resume()
 
 void BreakoutAboutState::KeyPressed(Event& event)
 {
-	switch(event.Key.Code)
+    switch(event.key.code)
 	{
 	case Keyboard::Escape:
 		PopState();
-		break;
-	default: break;
+		break;	
 	}
 }
 
@@ -61,10 +60,10 @@ void BreakoutAboutState::KeyReleased(Event& event)
 
 bool BreakoutAboutState::FrameRender(RenderWindow& window, float frametime)
 {
-	text.SetString("About Breakout");
-	text.SetCharacterSize(20);
-	text.SetPosition(window.GetWidth() / 2 - text.GetGlobalBounds().Width / 2, 120);
-	window.Draw(text);
+    text.setString("About Breakout");
+    text.setCharacterSize(20);
+    text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 120);
+    window.draw(text);
 
 	return false;
 }

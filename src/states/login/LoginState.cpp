@@ -28,9 +28,9 @@ void LoginState::Enter(RenderWindow& window)
 {
 	Font& font = fontManager["arial"];
 
-	text.SetFont(font);
-	text.SetCharacterSize(20);
-	text.SetColor(Color(255, 128, 0));
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setColor(Color(255, 128, 0));
 
 	info = "Enter your name";
 	username = "";
@@ -52,7 +52,7 @@ void LoginState::Resume()
 
 void LoginState::KeyPressed(Event& event)
 {
-	switch(event.Key.Code)
+    switch(event.key.code)
 	{
 	case Keyboard::Return:
         if(Login())
@@ -63,7 +63,7 @@ void LoginState::KeyPressed(Event& event)
 		PopState();
 		break;
 
-    case Keyboard::Back:
+    case Keyboard::BackSpace:
 		if(username.length() > 0)
 			username = username.substr(0, username.length() - 1);
 		break;
@@ -74,13 +74,13 @@ void LoginState::KeyPressed(Event& event)
 		break;
 
 	default:
-		if(username.length() < 13 && event.Text.Unicode <= Keyboard::Z)
+        if(username.length() < 13 && event.text.unicode <= Keyboard::Z)
         {	
 			// FIXME: Keyboard::Key enumeration is not frozen. Make a switch?
-			if(Keyboard::IsKeyPressed(Keyboard::RShift) || Keyboard::IsKeyPressed(Keyboard::LShift))
-				username += 'A' + event.Text.Unicode;
+            if(Keyboard::isKeyPressed(Keyboard::RShift) || Keyboard::isKeyPressed(Keyboard::LShift))
+                username += 'A' + event.text.unicode;
 			else
-				username += 'a' + event.Text.Unicode;
+                username += 'a' + event.text.unicode;
         }
         break;
 	}
@@ -92,20 +92,20 @@ void LoginState::KeyReleased(Event& event)
 
 bool LoginState::FrameRender(RenderWindow& window, float frametime)
 {	
-	text.SetString("Login");
-	text.SetCharacterSize(40);
-	text.SetPosition(window.GetWidth() / 2 - text.GetGlobalBounds().Width / 2, 50);
-	window.Draw(text);
+    text.setString("Login");
+    text.setCharacterSize(40);
+    text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 50);
+    window.draw(text);
 
-	text.SetString(info);
-	text.SetCharacterSize(20);
-	text.SetPosition(window.GetWidth() / 2 - text.GetGlobalBounds().Width / 2, 100);
-	window.Draw(text);
+    text.setString(info);
+    text.setCharacterSize(20);
+    text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 100);
+    window.draw(text);
 	
-	text.SetString(username);
-	text.SetCharacterSize(20);
-	text.SetPosition(window.GetWidth() / 2 - text.GetGlobalBounds().Width / 2, 140);
-	window.Draw(text);
+    text.setString(username);
+    text.setCharacterSize(20);
+    text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 140);
+    window.draw(text);
 
 	return false;
 }

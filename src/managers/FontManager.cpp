@@ -66,7 +66,7 @@ Font* FontManager::Load(const std::string& name)
 				if(attr->value() == name)
 				{
 					font = new Font();
-					if(!font->LoadFromFile(attr->next_attribute()->value()))
+                    if(!font->loadFromFile(attr->next_attribute()->value()))
 					{
 						delete font;
 						doc.clear();

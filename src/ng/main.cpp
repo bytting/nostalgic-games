@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
         ng::StateManager state_manager;        
 
-		state_manager.Initialize("Nostalgic Games", sf::VideoMode(1024, 768), false, maxFramerate);
+        state_manager.Initialize("Nostalgic Games", sf::VideoMode(1024, 768), false, maxFramerate);
 		state_manager.Start(IntroState::Instance());
 
         NG_LOG(argv[0] << " finished");

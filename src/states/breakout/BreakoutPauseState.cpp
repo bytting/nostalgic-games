@@ -26,9 +26,9 @@ void BreakoutPauseState::Enter(RenderWindow& window)
 {
 	Font& font = fontManager["arial"];
 
-	text.SetFont(font);
-	text.SetCharacterSize(20);
-	text.SetColor(Color(255, 128, 0));
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setColor(Color(255, 128, 0));
 }
 
 void BreakoutPauseState::Exit(RenderWindow& window)
@@ -45,7 +45,7 @@ void BreakoutPauseState::Resume()
 
 void BreakoutPauseState::KeyPressed(Event& event)
 {
-	switch(event.Key.Code)
+    switch(event.key.code)
 	{
 	case Keyboard::Escape:
 		PopState();
@@ -60,15 +60,15 @@ void BreakoutPauseState::KeyReleased(Event& event)
 
 bool BreakoutPauseState::FrameRender(RenderWindow& window, float frametime)
 {	
-	text.SetString("Breakout paused");
-	text.SetCharacterSize(40);
-	text.SetPosition(window.GetWidth() / 2 - text.GetGlobalBounds().Width / 2, 50);
-	window.Draw(text);
+    text.setString("Breakout paused");
+    text.setCharacterSize(40);
+    text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 50);
+    window.draw(text);
 	
-	text.SetString("Press ESCAPE to resume");
-	text.SetCharacterSize(20);
-	text.SetPosition(window.GetWidth() / 2 - text.GetGlobalBounds().Width / 2, 120);
-	window.Draw(text);
+    text.setString("Press ESCAPE to resume");
+    text.setCharacterSize(20);
+    text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 120);
+    window.draw(text);
 
 	return false;
 }

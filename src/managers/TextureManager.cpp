@@ -66,7 +66,7 @@ Texture* TextureManager::Load(const std::string& name)
 				if(attr->value() == name)
 				{
 					tex = new Texture();
-					if(!tex->LoadFromFile(attr->next_attribute()->value()))
+                    if(!tex->loadFromFile(attr->next_attribute()->value()))
 					{
 						delete tex;
 						doc.clear();

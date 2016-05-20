@@ -28,9 +28,9 @@ void MenuState::Enter(RenderWindow& window)
 {
 	Font& font = mFontManager["arial"];
 
-    mText.SetFont(font);
-    mText.SetCharacterSize(20);
-	mText.SetColor(Color(255, 128, 0));
+    mText.setFont(font);
+    mText.setCharacterSize(20);
+    mText.setColor(Color(255, 128, 0));
 }
 
 void MenuState::Exit(RenderWindow& window)
@@ -47,7 +47,7 @@ void MenuState::Resume()
 
 void MenuState::KeyPressed(Event& event)
 {
-	switch(event.Key.Code)
+    switch(event.key.code)
 	{
 	case Keyboard::F1:
 		PushState(BreakoutState::Instance());
@@ -68,15 +68,15 @@ void MenuState::KeyReleased(Event& event)
 
 bool MenuState::FrameRender(RenderWindow& window, float frametime)
 {	
-	mText.SetString("Menu");
-	mText.SetCharacterSize(40);
-	mText.SetPosition(window.GetWidth() / 2 - mText.GetGlobalBounds().Width / 2, 50);
-	window.Draw(mText);
+    mText.setString("Menu");
+    mText.setCharacterSize(40);
+    mText.setPosition(window.getSize().x / 2 - mText.getGlobalBounds().width / 2, 50);
+    window.draw(mText);
 	
-	mText.SetString("F1 - Breakout | F2 - About Breakout");
-	mText.SetCharacterSize(20);
-	mText.SetPosition(window.GetWidth() / 2 - mText.GetGlobalBounds().Width / 2, 120);
-	window.Draw(mText);
+    mText.setString("F1 - Breakout | F2 - About Breakout");
+    mText.setCharacterSize(20);
+    mText.setPosition(window.getSize().x / 2 - mText.getGlobalBounds().width / 2, 120);
+    window.draw(mText);
 
 	return false;
 }

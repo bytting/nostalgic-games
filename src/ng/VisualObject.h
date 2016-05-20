@@ -39,39 +39,39 @@ public:
 		NE(0.f), NW(0.f), SW(0.f), SE(0.f), mMass(10.f)
 	{}
 	
-	const sf::Vector2f& Position() const { return mSprite.GetPosition(); }
+    const sf::Vector2f& Position() const { return mSprite.getPosition(); }
 	
-	void SetPosition(const sf::Vector2f& newPos) { mSprite.SetPosition(newPos); }
+    void SetPosition(const sf::Vector2f& newPos) { mSprite.setPosition(newPos); }
 
-	void SetPosition(float newX, float newY) { mSprite.SetPosition(newX, newY); }
+    void SetPosition(float newX, float newY) { mSprite.setPosition(newX, newY); }
 
-	void SetX(float newX) { mSprite.SetPosition(newX, mSprite.GetPosition().y); }
+    void SetX(float newX) { mSprite.setPosition(newX, mSprite.getPosition().y); }
 
-	void SetY(float newY) { mSprite.SetPosition(mSprite.GetPosition().x, newY); }
+    void SetY(float newY) { mSprite.setPosition(mSprite.getPosition().x, newY); }
 
-	float Left() const { return mSprite.GetPosition().x; }
+    float Left() const { return mSprite.getPosition().x; }
 
-	float Top() const { return mSprite.GetPosition().y; }
+    float Top() const { return mSprite.getPosition().y; }
 
-	float Right() const { return mSprite.GetPosition().x + mSprite.GetTextureRect().Width; }
+    float Right() const { return mSprite.getPosition().x + mSprite.getTextureRect().width; }
 
-	float Bottom() const { return mSprite.GetPosition().y + mSprite.GetTextureRect().Height; }
+    float Bottom() const { return mSprite.getPosition().y + mSprite.getTextureRect().height; }
 
 	sf::FloatRect Rect() const;
 
-	sf::Vector2f Size() const { return sf::Vector2f((float)mSprite.GetTextureRect().Width, (float)mSprite.GetTextureRect().Height); }
+    sf::Vector2f Size() const { return sf::Vector2f((float)mSprite.getTextureRect().width, (float)mSprite.getTextureRect().height); }
 
-	float Width() const { return (float)mSprite.GetTextureRect().Width; }
+    float Width() const { return (float)mSprite.getTextureRect().width; }
 
-	float Height() const { return (float)mSprite.GetTextureRect().Height; }
+    float Height() const { return (float)mSprite.getTextureRect().height; }
 	
-	float CenterX() const { return mSprite.GetPosition().x + mSprite.GetTextureRect().Width / 2; }
+    float CenterX() const { return mSprite.getPosition().x + mSprite.getTextureRect().width / 2; }
 
-	float CenterY() const { return mSprite.GetPosition().y + mSprite.GetTextureRect().Height / 2; }
+    float CenterY() const { return mSprite.getPosition().y + mSprite.getTextureRect().height / 2; }
 
-	float LastPositionCenterX() const { return LastPosition.x + mSprite.GetTextureRect().Width / 2; }
+    float LastPositionCenterX() const { return LastPosition.x + mSprite.getTextureRect().width / 2; }
 
-	float LastPositionCenterY() const { return LastPosition.y + mSprite.GetTextureRect().Height / 2; }
+    float LastPositionCenterY() const { return LastPosition.y + mSprite.getTextureRect().height / 2; }
 
 	void SetCorners(float ne, float nw, float sw, float se);
 
@@ -79,11 +79,11 @@ public:
 
 	const sf::Sprite& Sprite() const { return mSprite; }
 
-	void SetSpriteColor(const sf::Color& color) { mSprite.SetColor(color); }
+    void SetSpriteColor(const sf::Color& color) { mSprite.setColor(color); }
 
-	void SetSpriteTexture(const sf::Texture& tex) { mSprite.SetTexture(tex); }
+    void SetSpriteTexture(const sf::Texture& tex) { mSprite.setTexture(tex); }
 
-	void SetImageRect(const sf::IntRect& rectangle) { mSprite.SetTextureRect(rectangle); }
+    void SetImageRect(const sf::IntRect& rectangle) { mSprite.setTextureRect(rectangle); }
 
 	bool IsOriginInsideBrick(const VisualObject& object);
 

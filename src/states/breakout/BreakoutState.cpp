@@ -41,14 +41,14 @@ void BreakoutState::Enter(RenderWindow& window)
 	currentLevel = score = 0;
 	InitializeBreakout(window);
 
-	window.ShowMouseCursor(false);
+    window.setMouseCursorVisible(false);
 }
 
 void BreakoutState::Exit(RenderWindow& window)
 {
     NG_LOG("Exiting breakout state");
 
-    window.ShowMouseCursor(true);
+    window.setMouseCursorVisible(true);
 }
 
 void BreakoutState::Pause()
@@ -61,15 +61,14 @@ void BreakoutState::Resume()
 
 void BreakoutState::KeyPressed(Event& event)
 {
-	switch(event.Key.Code)
+    switch(event.key.code)
 	{
 	case Keyboard::Escape:
 		PopState();
 		break;
 	case Keyboard::Pause:
 		PushState(BreakoutPauseState::Instance());
-		break;	
-	default: break;
+		break;		
 	}
 }
 
@@ -84,10 +83,10 @@ bool BreakoutState::FrameRender(RenderWindow& window, float frametime)
 	// Move main pad	
 	pads[0].Velocity = Vector2f(0.f, 0.f);
 
-	if(Keyboard::IsKeyPressed(Keyboard::Left))
+    if(Keyboard::isKeyPressed(Keyboard::Left))
 		pads[0].Velocity.x -= padSpeed;
 
-	if(Keyboard::IsKeyPressed(Keyboard::Right))
+    if(Keyboard::isKeyPressed(Keyboard::Right))
 		pads[0].Velocity.x += padSpeed;
 
 	pads[0].UpdateDestination(frametime);
@@ -95,8 +94,8 @@ bool BreakoutState::FrameRender(RenderWindow& window, float frametime)
 	if(pads[0].Destination().x < 0.f)
 		pads[0].SetDestinationX(0.f);
 
-	if(pads[0].Destination().x > window.GetWidth() - pads[0].Width())
-		pads[0].SetDestinationX(window.GetWidth() - pads[0].Width());
+    if(pads[0].Destination().x > window.getSize().x - pads[0].Width())
+        pads[0].SetDestinationX(window.getSize().x - pads[0].Width());
 
 	pads[0].MoveToDestination();
 
@@ -105,10 +104,10 @@ bool BreakoutState::FrameRender(RenderWindow& window, float frametime)
 	{
 		pads[1].Velocity = Vector2f(0.f, 0.f);
 
-		if(Keyboard::IsKeyPressed(Keyboard::A))
+        if(Keyboard::isKeyPressed(Keyboard::A))
 			pads[1].Velocity.x -= padSpeed;
 
-		if(Keyboard::IsKeyPressed(Keyboard::D))
+        if(Keyboard::isKeyPressed(Keyboard::D))
 			pads[1].Velocity.x += padSpeed;
 
 		pads[1].UpdateDestination(frametime);
@@ -116,8 +115,8 @@ bool BreakoutState::FrameRender(RenderWindow& window, float frametime)
 		if(pads[1].Destination().x < 0.f)
 			pads[1].SetDestinationX(0.f);
 
-		if(pads[1].Destination().x > window.GetWidth() - pads[1].Width())
-			pads[1].SetDestinationX(window.GetWidth() - pads[1].Width());
+        if(pads[1].Destination().x > window.getSize().x - pads[1].Width())
+            pads[1].SetDestinationX(window.getSize().x - pads[1].Width());
 
 		pads[1].MoveToDestination();
 	}
@@ -140,13 +139,13 @@ bool BreakoutState::FrameRender(RenderWindow& window, float frametime)
 
 			// Process collision with window edges
 			const Vector2f& pos = balls[b].Destination();
-			if(pos.x <= 0 || pos.x >= window.GetWidth() - balls[b].Width())
+            if(pos.x <= 0 || pos.x >= window.getSize().x - balls[b].Width())
 			{
 				balls[b].SetPosition(balls[b].LastPosition);
 				balls[b].Velocity.x *= -1;
 			}
 
-			if(pos.y <= 0 || pos.y >= window.GetHeight() - balls[b].Height())
+            if(pos.y <= 0 || pos.y >= window.getSize().y - balls[b].Height())
 			{
 				balls[b].SetPosition(balls[b].LastPosition);
 				balls[b].Velocity.y *= -1;
@@ -197,28 +196,28 @@ bool BreakoutState::FrameRender(RenderWindow& window, float frametime)
 	}	
 
     // Draw background
-    window.Draw(spriteBackground);
+    window.draw(spriteBackground);
 	
 	// Draw all active bricks
 	for(int i=0; i<BRICK_ROWS_MAX; i++)
 		for(int j=0; j<BRICK_COLS_MAX; j++)
 			if(bricks[i][j].Flags & OBJECT_ACTIVE)
-				window.Draw(bricks[i][j].Sprite());
+                window.draw(bricks[i][j].Sprite());
 
 	// Draw all active pads
 	for(int i=0; i<PADS_MAX; i++)
 		if(pads[i].Flags & OBJECT_ACTIVE)
-			window.Draw(pads[i].Sprite());
+            window.draw(pads[i].Sprite());
 
 	// Draw all active balls
 	for(int i=0; i<BALLS_MAX; i++)
 		if(balls[i].Flags & OBJECT_ACTIVE)
-			window.Draw(balls[i].Sprite());
+            window.draw(balls[i].Sprite());
 
     // Print status
-    text.SetString(stringManager["username"] + " | Score " + ConvertToString(score));
-	text.SetPosition(window.GetWidth() - 100.f, float(window.GetHeight() - text.GetCharacterSize() - 4));
-	window.Draw(text);
+    text.setString(stringManager["username"] + " | Score " + ConvertToString(score));
+    text.setPosition(window.getSize().x - 100.f, float(window.getSize().y - text.getCharacterSize() - 4));
+    window.draw(text);
 
     // Print debug info
     #ifdef NG_DEBUG
@@ -226,9 +225,9 @@ bool BreakoutState::FrameRender(RenderWindow& window, float frametime)
 	float framerate = 1.f / frametime;
 	std::string debug_info = "FPS " + ConvertToString(framerate);
 	debug_info.resize(9, ' ');
-	text.SetString(debug_info + " | Bricks left " + ConvertToString(remainingBricks));
-	text.SetPosition(10.f, float(window.GetHeight() - text.GetCharacterSize() - 4));
-	window.Draw(text);
+    text.setString(debug_info + " | Bricks left " + ConvertToString(remainingBricks));
+    text.setPosition(10.f, float(window.getSize().y - text.getCharacterSize() - 4));
+    window.draw(text);
 
     #endif
 
@@ -259,14 +258,14 @@ void BreakoutState::InitializeBreakout(RenderWindow& window)
 
     Font& font = fontManager["arial"];
 
-	text.SetFont(font);
-	text.SetCharacterSize(12);
-	text.SetColor(Color(255, 128, 0));
+    text.setFont(font);
+    text.setCharacterSize(12);
+    text.setColor(Color(255, 128, 0));
 
     Texture& img_space01 = textureManager["breakout-space01"];
 
-    spriteBackground.SetTexture(img_space01);
-    spriteBackground.SetTextureRect(IntRect(0, 0, window.GetWidth(), window.GetHeight()));
+    spriteBackground.setTexture(img_space01);
+    spriteBackground.setTextureRect(IntRect(0, 0, window.getSize().x, window.getSize().y));
 
     Texture& img_breakout = textureManager["breakout"];	
 
@@ -325,13 +324,13 @@ void BreakoutState::InitializeBreakout(RenderWindow& window)
 		pads[i].SetCorners(pad_NE, pad_NW, pad_SW, pad_SE);
 		pads[i].SetSpriteTexture(img_breakout);
 		pads[i].SetImageRect(IntRect(PAD_LARGE_LEFT, PAD_LARGE_TOP, PAD_LARGE_WIDTH, PAD_LARGE_HEIGHT));
-		pads[i].SetPosition(window.GetWidth() / 2.f - PAD_LARGE_WIDTH / 2.f, window.GetHeight() - 50.f);
+        pads[i].SetPosition(window.getSize().x / 2.f - PAD_LARGE_WIDTH / 2.f, window.getSize().y - 50.f);
 		pads[i].Velocity = Vector2f(0.f, 0.f);
 		pads[i].SetDestination(pads[i].Position());
 		pads[i].LastPosition = pads[i].Position();
 	}
 	pads[1].SetSpriteColor(Color(220, 220, 28));
-	pads[1].SetX(window.GetWidth() / 4.f);
+    pads[1].SetX(window.getSize().x / 4.f);
 
 	balls.resize(BALLS_MAX);
 	for(int i=0; i<BALLS_MAX; i++)
@@ -340,7 +339,7 @@ void BreakoutState::InitializeBreakout(RenderWindow& window)
 		balls[i].Flags = OBJECT_ACTIVE;
 		balls[i].SetSpriteTexture(img_breakout);
 		balls[i].SetImageRect(IntRect(BALL_MEDIUM_LEFT, BALL_MEDIUM_TOP, BALL_MEDIUM_WIDTH, BALL_MEDIUM_HEIGHT));
-		balls[i].SetPosition(window.GetWidth() / 2.f - BALL_MEDIUM_WIDTH / 2.f, window.GetHeight() - 65.f);
+        balls[i].SetPosition(window.getSize().x / 2.f - BALL_MEDIUM_WIDTH / 2.f, window.getSize().y - 65.f);
 		balls[i].Velocity = Vector2f(RandomFloatRange(-ballSpeed, ballSpeed), -ballSpeed);		
 		balls[i].SetDestination(balls[i].Position());
 		balls[i].LastPosition = balls[i].Position();

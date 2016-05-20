@@ -47,9 +47,9 @@ void StateManager::Initialize(const std::string& title, const sf::VideoMode& mod
     m->Title = title;
     m->WindowStyle = fullScreen ? sf::Style::Fullscreen : sf::Style::Titlebar | sf::Style::Close;
     m->RenderWindow = new sf::RenderWindow(mode, m->Title, m->WindowStyle);
-    m->RenderWindow->EnableVerticalSync(true);    
+    //m->RenderWindow->enableVerticalSync(true);
 	if(maxFramerate)
-		m->RenderWindow->SetFramerateLimit(maxFramerate);
+        m->RenderWindow->setFramerateLimit(maxFramerate);
 }
 
 void StateManager::Start(State* state)
@@ -98,42 +98,42 @@ void StateManager::StartEventProcessor()
 	float elapsed;
 
 	m->Running = true;
-	clock.Restart();
+    clock.restart();
 
 	while(m->Running)
 	{	
-		elapsed = (float)clock.Restart().AsMilliseconds();
+        elapsed = (float)clock.restart().asMilliseconds();
 
-		while(m->RenderWindow->PollEvent(m->Event))
+        while(m->RenderWindow->pollEvent(m->Event))
 		{
-			if (m->Event.Type == Event::Closed)
+            if (m->Event.type == Event::Closed)
 			{
 				m->Running = false;
 			}
-			else if(m->Event.Type == Event::KeyPressed)
+            else if(m->Event.type == Event::KeyPressed)
 			{
 				m->States.back()->KeyPressed(m->Event);
 			}
-			else if(m->Event.Type == Event::KeyReleased)
+            else if(m->Event.type == Event::KeyReleased)
 			{
 				m->States.back()->KeyReleased(m->Event);
 			}
 			// FIXME
 			// Linux have a problem with some mouses (MS SideWinder) and produces joystick events for it.
 			// Since we are not using joysticks I'll just force a break
-			else if(m->Event.Type == Event::JoystickButtonPressed || m->Event.Type == Event::JoystickButtonReleased || m->Event.Type == Event::JoystickMoved)			
+            else if(m->Event.type == Event::JoystickButtonPressed || m->Event.type == Event::JoystickButtonReleased || m->Event.type == Event::JoystickMoved)
 				break;			
 		}				
 
-		m->RenderWindow->Clear();
+        m->RenderWindow->clear();
 
 		if(m->States.back()->FrameRender(*m->RenderWindow, elapsed))		
 			m->Running = false;		
 
-		m->RenderWindow->Display();					
+        m->RenderWindow->display();
 	}
 
-	m->RenderWindow->Close();
+    m->RenderWindow->close();
 }
 
 } // namespace ng
