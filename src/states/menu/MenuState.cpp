@@ -26,7 +26,7 @@ MenuState MenuState::gMenuState;
 
 void MenuState::Enter(RenderWindow& window)
 {
-	Font& font = mFontManager["arial"];
+    Font& font = mFontManager["arial"];
 
     mText.setFont(font);
     mText.setCharacterSize(20);
@@ -48,18 +48,17 @@ void MenuState::Resume()
 void MenuState::KeyPressed(Event& event)
 {
     switch(event.key.code)
-	{
-	case Keyboard::F1:
-		PushState(BreakoutState::Instance());
-		break;
-	case Keyboard::F2:
-		PushState(BreakoutAboutState::Instance());
-		break;
-	case Keyboard::Escape:
-		PopState();
-		break;
-	default: break;
-	}
+    {
+    case Keyboard::F1:
+        PushState(BreakoutState::Instance());
+        break;
+    case Keyboard::F2:
+        PushState(BreakoutAboutState::Instance());
+        break;
+    case Keyboard::Escape:
+        PopState();
+        break;
+    }
 }
 
 void MenuState::KeyReleased(Event& event)
@@ -67,17 +66,16 @@ void MenuState::KeyReleased(Event& event)
 }
 
 bool MenuState::FrameRender(RenderWindow& window, float frametime)
-{	
+{
     mText.setString("Menu");
     mText.setCharacterSize(40);
     mText.setPosition(window.getSize().x / 2 - mText.getGlobalBounds().width / 2, 50);
     window.draw(mText);
-	
+
     mText.setString("F1 - Breakout | F2 - About Breakout");
     mText.setCharacterSize(20);
     mText.setPosition(window.getSize().x / 2 - mText.getGlobalBounds().width / 2, 120);
     window.draw(mText);
 
-	return false;
+    return false;
 }
-

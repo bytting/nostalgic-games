@@ -26,14 +26,14 @@ LoginState LoginState::gLoginState;
 
 void LoginState::Enter(RenderWindow& window)
 {
-	Font& font = fontManager["arial"];
+    Font& font = fontManager["arial"];
 
     text.setFont(font);
     text.setCharacterSize(20);
     text.setColor(Color(255, 128, 0));
 
-	info = "Enter your name";
-	username = "";
+    info = "Enter your name";
+    username = "";
 }
 
 void LoginState::Exit(RenderWindow& window)
@@ -53,37 +53,37 @@ void LoginState::Resume()
 void LoginState::KeyPressed(Event& event)
 {
     switch(event.key.code)
-	{
-	case Keyboard::Return:
+    {
+    case Keyboard::Return:
         if(Login())
             PushState(MenuState::Instance());
-		break;
+        break;
 
-	case Keyboard::Escape:
-		PopState();
-		break;
+    case Keyboard::Escape:
+        PopState();
+        break;
 
     case Keyboard::BackSpace:
-		if(username.length() > 0)
-			username = username.substr(0, username.length() - 1);
-		break;
+        if(username.length() > 0)
+            username = username.substr(0, username.length() - 1);
+        break;
 
     case Keyboard::Space:
-		if(username.length() > 0 && username.length() < 13 && username[username.length() - 1] != ' ')
+        if(username.length() > 0 && username.length() < 13 && username[username.length() - 1] != ' ')
             username += " ";
-		break;
+        break;
 
-	default:
+    default:
         if(username.length() < 13 && event.text.unicode <= Keyboard::Z)
-        {	
-			// FIXME: Keyboard::Key enumeration is not frozen. Make a switch?
+        {
+            // FIXME: Keyboard::Key enumeration is not frozen. Make a switch?
             if(Keyboard::isKeyPressed(Keyboard::RShift) || Keyboard::isKeyPressed(Keyboard::LShift))
                 username += 'A' + event.text.unicode;
-			else
+            else
                 username += 'a' + event.text.unicode;
         }
         break;
-	}
+    }
 }
 
 void LoginState::KeyReleased(Event& event)
@@ -91,7 +91,7 @@ void LoginState::KeyReleased(Event& event)
 }
 
 bool LoginState::FrameRender(RenderWindow& window, float frametime)
-{	
+{
     text.setString("Login");
     text.setCharacterSize(40);
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 50);
@@ -101,13 +101,13 @@ bool LoginState::FrameRender(RenderWindow& window, float frametime)
     text.setCharacterSize(20);
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 100);
     window.draw(text);
-	
+
     text.setString(username);
     text.setCharacterSize(20);
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 140);
     window.draw(text);
 
-	return false;
+    return false;
 }
 
 bool LoginState::Login()
@@ -124,4 +124,3 @@ bool LoginState::Login()
 
     return true;
 }
-

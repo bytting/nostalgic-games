@@ -74,42 +74,42 @@ class BreakoutState : public ng::State
 {
 public:
 
-	void Enter(sf::RenderWindow& window);
-	void Exit(sf::RenderWindow& window);
+    void Enter(sf::RenderWindow& window);
+    void Exit(sf::RenderWindow& window);
 
-	void Pause();
-	void Resume();
+    void Pause();
+    void Resume();
 
-	void KeyPressed(sf::Event& event);
-	void KeyReleased(sf::Event& event);
-	bool FrameRender(sf::RenderWindow& window, float frametime);
+    void KeyPressed(sf::Event& event);
+    void KeyReleased(sf::Event& event);
+    bool FrameRender(sf::RenderWindow& window, float frametime);
 
-	static BreakoutState* Instance() { return &gBreakoutState; }
+    static BreakoutState* Instance() { return &gBreakoutState; }
 
 protected:
 
-	BreakoutState() { }
+    BreakoutState() { }
 
 private:
 
-	static BreakoutState gBreakoutState;
+    static BreakoutState gBreakoutState;
 
-	ng::FontManager fontManager;
-	ng::TextureManager textureManager;
-	ng::StringManager stringManager;
+    ng::FontManager fontManager;
+    ng::TextureManager textureManager;
+    ng::StringManager stringManager;
 
     sf::Text text;
     sf::Sprite spriteBackground;
 
-	std::vector<std::vector<ng::VisualObject> > bricks;
-	std::vector<ng::VisualObject> pads;
-	std::vector<ng::VisualObject> balls;
+    std::vector<std::vector<ng::VisualObject> > bricks;
+    std::vector<ng::VisualObject> pads;
+    std::vector<ng::VisualObject> balls;
 
-	float padSpeed, ballSpeed;
-	int score, remainingBricks;
-	unsigned int currentLevel;
+    float padSpeed, ballSpeed;
+    int score, remainingBricks;
+    unsigned int currentLevel;
 
-	void InitializeBreakout(sf::RenderWindow& window);
+    void InitializeBreakout(sf::RenderWindow& window);
 };
 
 #endif

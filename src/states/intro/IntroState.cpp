@@ -26,13 +26,13 @@ IntroState IntroState::gIntroState;
 
 void IntroState::Enter(RenderWindow& window)
 {
-	Font& font = fontManager["arial"];
+    Font& font = fontManager["arial"];
 
     text.setFont(font);
     text.setCharacterSize(20);
     text.setColor(Color(255, 128, 0));
 
-	exitGame = false;
+    exitGame = false;
 }
 
 void IntroState::Exit(RenderWindow& window)
@@ -50,15 +50,14 @@ void IntroState::Resume()
 void IntroState::KeyPressed(Event& event)
 {
     switch(event.key.code)
-	{
-	case Keyboard::Space:
-		PushState(LoginState::Instance());
-		break;
-	case Keyboard::Escape:
-		exitGame = true;
-		break;
-	default: break;
-	}
+    {
+    case Keyboard::Space:
+        PushState(LoginState::Instance());
+        break;
+    case Keyboard::Escape:
+        exitGame = true;
+        break;
+    }
 }
 
 void IntroState::KeyReleased(Event& event)
@@ -66,16 +65,16 @@ void IntroState::KeyReleased(Event& event)
 }
 
 bool IntroState::FrameRender(RenderWindow& window, float frametime)
-{	
+{
     text.setString("Intro");
     text.setCharacterSize(40);
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 50);
     window.draw(text);
-	
+
     text.setString("Press SPACE to continue or ESCAPE to quit");
     text.setCharacterSize(20);
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 120);
     window.draw(text);
 
-	return exitGame;
+    return exitGame;
 }

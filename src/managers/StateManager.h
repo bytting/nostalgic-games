@@ -33,73 +33,73 @@ class StateManager
 {
 public:
 
-	/**
-	 * StateManager::StateManager
-	 * @brief Default StateManager constructor
-	 */
-	StateManager();
+    /**
+     * StateManager::StateManager
+     * @brief Default StateManager constructor
+     */
+    StateManager();
 
-	/**
-	 * StateManager::~StateManager
-	 * @brief StateManager destructor
-	 */
-	~StateManager();
+    /**
+     * StateManager::~StateManager
+     * @brief StateManager destructor
+     */
+    ~StateManager();
 
-	/**
-	 * StateManager::initialize
-	 * @param title - The window caption. Not visible in full screen mode
-	 * @param mode - The SFML::VideoMode to use
-	 * @param full_screen - Full screen switch
-	 * @brief This function initializes the StateManager and creates the SFML::RenderWindow target
-	 */
-	void Initialize(const std::string& title, const sf::VideoMode& mode, bool full_screen, unsigned int maxFramerate = 0);
+    /**
+     * StateManager::initialize
+     * @param title - The window caption. Not visible in full screen mode
+     * @param mode - The SFML::VideoMode to use
+     * @param full_screen - Full screen switch
+     * @brief This function initializes the StateManager and creates the SFML::RenderWindow target
+     */
+    void Initialize(const std::string& title, const sf::VideoMode& mode, bool full_screen, unsigned int maxFramerate = 0);
 
-	/**
-	 * StateManager::start
-	 * @param state - The state to start with
-	 * @brief This function will start the state manager using the provided state, and begin the event loop
-	 */
-	void Start(State* state);
+    /**
+     * StateManager::start
+     * @param state - The state to start with
+     * @brief This function will start the state manager using the provided state, and begin the event loop
+     */
+    void Start(State* state);
 
-	/**
-	 * StateManager::change_state
-	 * @param state - The state to change to
-	 * @brief This function will remove the current state from the state queue and add the provided state at the top
-	 */
-	void ChangeState(State* state);
+    /**
+     * StateManager::change_state
+     * @param state - The state to change to
+     * @brief This function will remove the current state from the state queue and add the provided state at the top
+     */
+    void ChangeState(State* state);
 
-	/**
-	 * StateManager::push_state
-	 * @param state - The state to add
-	 * @brief This function will add the provided state to the top of the state queue
-	 */
-	void PushState(State* state);
+    /**
+     * StateManager::push_state
+     * @param state - The state to add
+     * @brief This function will add the provided state to the top of the state queue
+     */
+    void PushState(State* state);
 
-	/**
-	 * StateManager::pop_state
-	 * @brief This function will pop the top state off the state queue
-	 */
-	void PopState();
+    /**
+     * StateManager::pop_state
+     * @brief This function will pop the top state off the state queue
+     */
+    void PopState();
 
 private:
 
-	struct StateData : private SingletonClient
-	{
-		std::vector<State*> States;
-		sf::RenderWindow* RenderWindow;
-		unsigned long WindowStyle;
-		bool Running;
-		std::string Title;
-		sf::Event Event;
-	};
+    struct StateData : private SingletonClient
+    {
+        std::vector<State*> States;
+        sf::RenderWindow* RenderWindow;
+        unsigned long WindowStyle;
+        bool Running;
+        std::string Title;
+        sf::Event Event;
+    };
 
-	StateData* const m;
+    StateData* const m;
 
-	/**
-	 * StateManager::start_event_processor
-	 * @brief This function will start the dispatching of system events
-	 */
-	void StartEventProcessor();
+    /**
+     * StateManager::start_event_processor
+     * @brief This function will start the dispatching of system events
+     */
+    void StartEventProcessor();
 };
 
 } // namespace ng

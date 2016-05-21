@@ -31,12 +31,12 @@ class StringManager
 {
 public:
 
-	StringManager() : m(Singleton<StringData>::InstancePtr()) {}
+    StringManager() : m(Singleton<StringData>::InstancePtr()) {}
 
-	std::string& operator [] (const std::string& name)
-	{
-	    return m->StringMap[name];
-	}
+    std::string& operator [] (const std::string& name)
+    {
+        return m->StringMap[name];
+    }
 
 private:
 

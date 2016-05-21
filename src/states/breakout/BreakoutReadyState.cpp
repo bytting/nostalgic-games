@@ -46,12 +46,11 @@ void BreakoutReadyState::Resume()
 void BreakoutReadyState::KeyPressed(Event& event)
 {
     switch(event.key.code)
-	{
-	case Keyboard::Space:
-		PopState();
-		break;
-	default: break;
-	}
+    {
+    case Keyboard::Space:
+        PopState();
+        break;
+    }
 }
 
 void BreakoutReadyState::KeyReleased(Event& event)
@@ -65,5 +64,5 @@ bool BreakoutReadyState::FrameRender(RenderWindow& window, float frametime)
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 120);
     window.draw(text);
 
-	return false;
+    return false;
 }

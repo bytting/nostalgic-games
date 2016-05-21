@@ -29,15 +29,15 @@ StateManager::StateManager() : m(Singleton<StateData>::InstancePtr())
 
 StateManager::~StateManager()
 {
-	while (!m->States.empty())
-	{
-		m->States.back()->Exit(*m->RenderWindow);
-		m->States.pop_back();
-	}
+    while (!m->States.empty())
+    {
+        m->States.back()->Exit(*m->RenderWindow);
+        m->States.pop_back();
+    }
 
-	if(m->RenderWindow)
-		delete m->RenderWindow;
-	m->RenderWindow = 0;
+    if(m->RenderWindow)
+        delete m->RenderWindow;
+    m->RenderWindow = 0;
 }
 
 void StateManager::Initialize(const std::string& title, const sf::VideoMode& mode, bool fullScreen, unsigned int maxFramerate)
@@ -48,90 +48,85 @@ void StateManager::Initialize(const std::string& title, const sf::VideoMode& mod
     m->WindowStyle = fullScreen ? sf::Style::Fullscreen : sf::Style::Titlebar | sf::Style::Close;
     m->RenderWindow = new sf::RenderWindow(mode, m->Title, m->WindowStyle);
     //m->RenderWindow->enableVerticalSync(true);
-	if(maxFramerate)
+    if(maxFramerate)
         m->RenderWindow->setFramerateLimit(maxFramerate);
 }
 
 void StateManager::Start(State* state)
 {
-	ChangeState(state);
-	if(!m->Running)
-		StartEventProcessor();
+    ChangeState(state);
+    if(!m->Running)
+        StartEventProcessor();
 }
 
 void StateManager::ChangeState(State* state)
 {
-	if (!m->States.empty())
-	{
-		m->States.back()->Exit(*m->RenderWindow);
-		m->States.pop_back();
-	}
+    if (!m->States.empty())
+    {
+        m->States.back()->Exit(*m->RenderWindow);
+        m->States.pop_back();
+    }
 
-	m->States.push_back(state);
-	m->States.back()->Enter(*m->RenderWindow);
+    m->States.push_back(state);
+    m->States.back()->Enter(*m->RenderWindow);
 }
 
 void StateManager::PushState(State* state)
 {
-	if (!m->States.empty())
-		m->States.back()->Pause();
+    if (!m->States.empty())
+        m->States.back()->Pause();
 
-	m->States.push_back(state);
-	m->States.back()->Enter(*m->RenderWindow);
+    m->States.push_back(state);
+    m->States.back()->Enter(*m->RenderWindow);
 }
 
 void StateManager::PopState()
 {
-	if(!m->States.empty())
-	{
-		m->States.back()->Exit(*m->RenderWindow);
-		m->States.pop_back();
-	}
+    if(!m->States.empty())
+    {
+        m->States.back()->Exit(*m->RenderWindow);
+        m->States.pop_back();
+    }
 
-	if (!m->States.empty())
-		m->States.back()->Resume();
+    if (!m->States.empty())
+        m->States.back()->Resume();
 }
 
 void StateManager::StartEventProcessor()
 {
-	Clock clock;
-	float elapsed;
+    Clock clock;
+    float elapsed;
 
-	m->Running = true;
+    m->Running = true;
     clock.restart();
 
-	while(m->Running)
-	{	
+    while(m->Running)
+    {
         elapsed = (float)clock.restart().asMilliseconds();
 
         while(m->RenderWindow->pollEvent(m->Event))
-		{
+        {
             if (m->Event.type == Event::Closed)
-			{
-				m->Running = false;
-			}
+            {
+                m->Running = false;
+            }
             else if(m->Event.type == Event::KeyPressed)
-			{
-				m->States.back()->KeyPressed(m->Event);
-			}
+            {
+                m->States.back()->KeyPressed(m->Event);
+            }
             else if(m->Event.type == Event::KeyReleased)
-			{
-				m->States.back()->KeyReleased(m->Event);
-			}
-			// FIXME
-			// Linux have a problem with some mouses (MS SideWinder) and produces joystick events for it.
-			// Since we are not using joysticks I'll just force a break
-            else if(m->Event.type == Event::JoystickButtonPressed || m->Event.type == Event::JoystickButtonReleased || m->Event.type == Event::JoystickMoved)
-				break;			
-		}				
+            {
+                m->States.back()->KeyReleased(m->Event);
+            }
+        }
 
         m->RenderWindow->clear();
 
-		if(m->States.back()->FrameRender(*m->RenderWindow, elapsed))		
-			m->Running = false;		
+        if(m->States.back()->FrameRender(*m->RenderWindow, elapsed))
+            m->Running = false;
 
         m->RenderWindow->display();
-	}
+    }
 
     m->RenderWindow->close();
 }

@@ -28,61 +28,61 @@ namespace ng
 
 std::string FontManager::ResourceFile;
 
-FontManager::FontManager()	
+FontManager::FontManager()
 {
 }
 
 Font* FontManager::Load(const std::string& name)
 {
-	using namespace std;
-	using namespace rapidxml;
+    using namespace std;
+    using namespace rapidxml;
 
-	Font* font = NULL;
-	ifstream::pos_type size;
-	char* memblock = NULL;
+    Font* font = NULL;
+    ifstream::pos_type size;
+    char* memblock = NULL;
 
-	ifstream file(ResourceFile.c_str(), ios::in | ios::binary | ios::ate);
-	if (!file.is_open())
-		throw std::runtime_error("FontManager failed to open file: " + ResourceFile);
+    ifstream file(ResourceFile.c_str(), ios::in | ios::binary | ios::ate);
+    if (!file.is_open())
+        throw std::runtime_error("FontManager failed to open file: " + ResourceFile);
 
-	size = file.tellg();
-	memblock = new char[size + (ifstream::pos_type)1];
-	file.seekg(0, ios::beg);
-	file.read(memblock, size);
-	file.close();
-	memblock[size] = '\0';
+    size = file.tellg();
+    memblock = new char[size + (ifstream::pos_type)1];
+    file.seekg(0, ios::beg);
+    file.read(memblock, size);
+    file.close();
+    memblock[size] = '\0';
 
-	xml_document<> doc;
-	doc.parse<0>(memblock);
+    xml_document<> doc;
+    doc.parse<0>(memblock);
 
-	xml_node<>* root = doc.first_node("resources");
+    xml_node<>* root = doc.first_node("resources");
 
-	for (xml_node<>* fontSection = root->first_node("fonts"); fontSection && !font; fontSection = fontSection->next_sibling("fonts"))
-	{
-		for (xml_node<>* fontElement = fontSection->first_node("font"); fontElement && !font; fontElement = fontElement->next_sibling("font"))
-		{
-			for(xml_attribute<> *attr = fontElement->first_attribute(); attr; attr = attr->next_attribute())
-			{
-				if(attr->value() == name)
-				{
-					font = new Font();
+    for (xml_node<>* fontSection = root->first_node("fonts"); fontSection && !font; fontSection = fontSection->next_sibling("fonts"))
+    {
+        for (xml_node<>* fontElement = fontSection->first_node("font"); fontElement && !font; fontElement = fontElement->next_sibling("font"))
+        {
+            for(xml_attribute<> *attr = fontElement->first_attribute(); attr; attr = attr->next_attribute())
+            {
+                if(attr->value() == name)
+                {
+                    font = new Font();
                     if(!font->loadFromFile(attr->next_attribute()->value()))
-					{
-						delete font;
-						doc.clear();
-						delete [] memblock;
-						throw std::runtime_error("FontManager failed to load resource: " + name);
-					}
-					break;
-				}
-			}
-		}
-	}
+                    {
+                        delete font;
+                        doc.clear();
+                        delete [] memblock;
+                        throw std::runtime_error("FontManager failed to load resource: " + name);
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
-	doc.clear();
-	delete [] memblock;
+    doc.clear();
+    delete [] memblock;
 
-	return font;
+    return font;
 }
 
 } // namespace ng

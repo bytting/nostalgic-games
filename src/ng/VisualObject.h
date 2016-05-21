@@ -31,16 +31,17 @@ namespace ng
 class VisualObject
 {
 public:
-	
-	VisualObject() : Flags(0),
-		Velocity(sf::Vector2f(0.f, 0.f)),
-		LastPosition(sf::Vector2f(0.f, 0.f)),
-		mDestination(sf::Vector2f(0.f, 0.f)),
-		NE(0.f), NW(0.f), SW(0.f), SE(0.f), mMass(10.f)
-	{}
-	
+
+    VisualObject() :
+        Flags(0),
+        Velocity(sf::Vector2f(0.f, 0.f)),
+        LastPosition(sf::Vector2f(0.f, 0.f)),
+        mDestination(sf::Vector2f(0.f, 0.f)),
+        NE(0.f), NW(0.f), SW(0.f), SE(0.f), mMass(10.f)
+    {}
+
     const sf::Vector2f& Position() const { return mSprite.getPosition(); }
-	
+
     void SetPosition(const sf::Vector2f& newPos) { mSprite.setPosition(newPos); }
 
     void SetPosition(float newX, float newY) { mSprite.setPosition(newX, newY); }
@@ -57,14 +58,14 @@ public:
 
     float Bottom() const { return mSprite.getPosition().y + mSprite.getTextureRect().height; }
 
-	sf::FloatRect Rect() const;
+    sf::FloatRect Rect() const;
 
     sf::Vector2f Size() const { return sf::Vector2f((float)mSprite.getTextureRect().width, (float)mSprite.getTextureRect().height); }
 
     float Width() const { return (float)mSprite.getTextureRect().width; }
 
     float Height() const { return (float)mSprite.getTextureRect().height; }
-	
+
     float CenterX() const { return mSprite.getPosition().x + mSprite.getTextureRect().width / 2; }
 
     float CenterY() const { return mSprite.getPosition().y + mSprite.getTextureRect().height / 2; }
@@ -73,11 +74,11 @@ public:
 
     float LastPositionCenterY() const { return LastPosition.y + mSprite.getTextureRect().height / 2; }
 
-	void SetCorners(float ne, float nw, float sw, float se);
+    void SetCornerRadians(float ne, float nw, float sw, float se);
 
-	void SetMass(float newMass) { mMass = newMass; }
+    void SetMass(float newMass) { mMass = newMass; }
 
-	const sf::Sprite& Sprite() const { return mSprite; }
+    const sf::Sprite& Sprite() const { return mSprite; }
 
     void SetSpriteColor(const sf::Color& color) { mSprite.setColor(color); }
 
@@ -85,34 +86,34 @@ public:
 
     void SetImageRect(const sf::IntRect& rectangle) { mSprite.setTextureRect(rectangle); }
 
-	bool IsOriginInsideBrick(const VisualObject& object);
+    bool IsOriginInsideBrick(const VisualObject& object);
 
-	void ProcessOriginImpactWithBrick(const VisualObject& object);
+    void ProcessOriginImpactWithBrick(const VisualObject& object);
 
-	bool IsBallOverlappingBall(const VisualObject& object);
+    bool IsBallOverlappingBall(const VisualObject& object);
 
-	void ProcessBallImpactWithBall(VisualObject& object);
+    void ProcessBallImpactWithBall(VisualObject& object);
 
-	const sf::Vector2f& Destination() const { return mDestination; }
-	
-	void SetDestination(const sf::Vector2f& newDestination) { mDestination = newDestination; }
+    const sf::Vector2f& Destination() const { return mDestination; }
 
-	void SetDestinationX(float newX) { mDestination.x = newX; }
+    void SetDestination(const sf::Vector2f& newDestination) { mDestination = newDestination; }
 
-	void SetDestinationY(float newY) { mDestination.y = newY; }
+    void SetDestinationX(float newX) { mDestination.x = newX; }
 
-	void UpdateDestination(float frametime);
+    void SetDestinationY(float newY) { mDestination.y = newY; }
 
-	void MoveToDestination();
+    void UpdateDestination(float frametime);
 
-	unsigned long Flags;
-	sf::Vector2f Velocity, LastPosition;
+    void MoveToDestination();
+
+    unsigned long Flags;
+    sf::Vector2f Velocity, LastPosition;
 
 private:
 
-	sf::Sprite mSprite;
-	sf::Vector2f mDestination;
-	float NE, NW, SW, SE, mMass;
+    sf::Sprite mSprite;
+    sf::Vector2f mDestination;
+    float NE, NW, SW, SE, mMass;
 };
 
 } // namespace ng

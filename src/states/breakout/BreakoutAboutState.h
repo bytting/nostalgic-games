@@ -26,29 +26,29 @@ class BreakoutAboutState : public ng::State
 {
 public:
 
-	void Enter(sf::RenderWindow& window);
-	void Exit(sf::RenderWindow& window);
+    void Enter(sf::RenderWindow& window);
+    void Exit(sf::RenderWindow& window);
 
-	void Pause();
-	void Resume();
+    void Pause();
+    void Resume();
 
-	void KeyPressed(sf::Event& event);
-	void KeyReleased(sf::Event& event);
-	bool FrameRender(sf::RenderWindow& window, float frametime);
+    void KeyPressed(sf::Event& event);
+    void KeyReleased(sf::Event& event);
+    bool FrameRender(sf::RenderWindow& window, float frametime);
 
-	static BreakoutAboutState* Instance() { return &gBreakoutAboutState; }
+    static BreakoutAboutState* Instance() { return &gBreakoutAboutState; }
 
 protected:
 
-	BreakoutAboutState() { }
+    BreakoutAboutState() { }
 
 private:
 
-	static BreakoutAboutState gBreakoutAboutState;
+    static BreakoutAboutState gBreakoutAboutState;
 
-	ng::FontManager fontManager;
+    ng::FontManager fontManager;
 
-	sf::Text text;
+    sf::Text text;
 };
 
 #endif

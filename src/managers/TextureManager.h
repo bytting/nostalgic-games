@@ -30,14 +30,14 @@ namespace ng
 class TextureManager : public ResourceBase<sf::Texture>
 {
 public:
-	
-	TextureManager();	
 
-	static std::string ResourceFile;
+    TextureManager();
+
+    static std::string ResourceFile;
 
 protected:
-	
-	virtual sf::Texture* Load(const std::string& name);
+
+    virtual sf::Texture* Load(const std::string& name);
 };
 
 } // namespace ng

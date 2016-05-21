@@ -34,55 +34,55 @@ TextureManager::TextureManager()
 
 Texture* TextureManager::Load(const std::string& name)
 {
-	using namespace std;
-	using namespace rapidxml;
+    using namespace std;
+    using namespace rapidxml;
 
-	Texture* tex = NULL;
-	ifstream::pos_type size;
-	char* memblock = NULL;
+    Texture* tex = NULL;
+    ifstream::pos_type size;
+    char* memblock = NULL;
 
-	ifstream file(ResourceFile.c_str(), ios::in | ios::binary | ios::ate);
-	if (!file.is_open())
-		throw std::runtime_error("TextureManager failed to open file: " + ResourceFile);
+    ifstream file(ResourceFile.c_str(), ios::in | ios::binary | ios::ate);
+    if (!file.is_open())
+        throw std::runtime_error("TextureManager failed to open file: " + ResourceFile);
 
-	size = file.tellg();
-	memblock = new char[size + (ifstream::pos_type)1];
-	file.seekg(0, ios::beg);
-	file.read(memblock, size);
-	file.close();
-	memblock[size] = '\0';
+    size = file.tellg();
+    memblock = new char[size + (ifstream::pos_type)1];
+    file.seekg(0, ios::beg);
+    file.read(memblock, size);
+    file.close();
+    memblock[size] = '\0';
 
-	xml_document<> doc;
-	doc.parse<0>(memblock);
+    xml_document<> doc;
+    doc.parse<0>(memblock);
 
-	xml_node<>* root = doc.first_node("resources");
+    xml_node<>* root = doc.first_node("resources");
 
-	for (xml_node<>* imageSection = root->first_node("images"); imageSection && !tex; imageSection = imageSection->next_sibling("images"))
-	{
-		for (xml_node<>* imageElement = imageSection->first_node("image"); imageElement && !tex; imageElement = imageElement->next_sibling("image"))
-		{
-			for(xml_attribute<> *attr = imageElement->first_attribute(); attr; attr = attr->next_attribute())
-			{
-				if(attr->value() == name)
-				{
-					tex = new Texture();
+    for (xml_node<>* imageSection = root->first_node("images"); imageSection && !tex; imageSection = imageSection->next_sibling("images"))
+    {
+        for (xml_node<>* imageElement = imageSection->first_node("image"); imageElement && !tex; imageElement = imageElement->next_sibling("image"))
+        {
+            for(xml_attribute<> *attr = imageElement->first_attribute(); attr; attr = attr->next_attribute())
+            {
+                if(attr->value() == name)
+                {
+                    tex = new Texture();
                     if(!tex->loadFromFile(attr->next_attribute()->value()))
-					{
-						delete tex;
-						doc.clear();
-						delete [] memblock;
-						throw std::runtime_error("TextureManager failed to load resource: " + name);
-					}
-					break;
-				}
-			}
-		}
-	}
+                    {
+                        delete tex;
+                        doc.clear();
+                        delete [] memblock;
+                        throw std::runtime_error("TextureManager failed to load resource: " + name);
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
-	doc.clear();
-	delete [] memblock;
+    doc.clear();
+    delete [] memblock;
 
-	return tex;
+    return tex;
 }
 
 } // namespace ng

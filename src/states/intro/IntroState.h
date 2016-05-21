@@ -26,30 +26,30 @@ class IntroState : public ng::State
 {
 public:
 
-	void Enter(sf::RenderWindow& window);
-	void Exit(sf::RenderWindow& window);
+    void Enter(sf::RenderWindow& window);
+    void Exit(sf::RenderWindow& window);
 
-	void Pause();
-	void Resume();
+    void Pause();
+    void Resume();
 
-	void KeyPressed(sf::Event& event);
-	void KeyReleased(sf::Event& event);
-	bool FrameRender(sf::RenderWindow& window, float frametime);
+    void KeyPressed(sf::Event& event);
+    void KeyReleased(sf::Event& event);
+    bool FrameRender(sf::RenderWindow& window, float frametime);
 
-	static IntroState* Instance() { return &gIntroState; }
+    static IntroState* Instance() { return &gIntroState; }
 
 protected:
 
-	IntroState() { }
+    IntroState() { }
 
 private:
 
-	static IntroState gIntroState;
+    static IntroState gIntroState;
 
-	ng::FontManager fontManager;
+    ng::FontManager fontManager;
 
-	sf::Text text;
-	bool exitGame;
+    sf::Text text;
+    bool exitGame;
 };
 
 #endif

@@ -26,29 +26,29 @@ class MenuState : public ng::State
 {
 public:
 
-	void Enter(sf::RenderWindow& window);
-	void Exit(sf::RenderWindow& window);
+    void Enter(sf::RenderWindow& window);
+    void Exit(sf::RenderWindow& window);
 
-	void Pause();
-	void Resume();
+    void Pause();
+    void Resume();
 
-	void KeyPressed(sf::Event& event);
-	void KeyReleased(sf::Event& event);
-	bool FrameRender(sf::RenderWindow& window, float frametime);
+    void KeyPressed(sf::Event& event);
+    void KeyReleased(sf::Event& event);
+    bool FrameRender(sf::RenderWindow& window, float frametime);
 
-	static MenuState* Instance() { return &gMenuState; }
+    static MenuState* Instance() { return &gMenuState; }
 
 protected:
 
-	MenuState() { }
+    MenuState() { }
 
 private:
 
-	static MenuState gMenuState;
+    static MenuState gMenuState;
 
-	ng::FontManager mFontManager;
+    ng::FontManager mFontManager;
 
-	sf::Text mText;
+    sf::Text mText;
 };
 
 #endif

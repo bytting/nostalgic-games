@@ -30,14 +30,14 @@ namespace ng
 class FontManager : public ResourceBase<sf::Font>
 {
 public:
-	
-	FontManager();
 
-	static std::string ResourceFile;
+    FontManager();
+
+    static std::string ResourceFile;
 
 protected:
-	
-	virtual sf::Font* Load(const std::string& name);
+
+    virtual sf::Font* Load(const std::string& name);
 };
 
 } // namespace ng

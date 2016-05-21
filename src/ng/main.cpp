@@ -50,32 +50,32 @@ int main(int argc, char *argv[])
 
 #endif
 
-	try
-	{
-	    NG_LOG("Debugging " << argv[0] << " at " << std::asctime(std::localtime(&current_time)));				
+    try
+    {
+        NG_LOG("Debugging " << argv[0] << " at " << std::asctime(std::localtime(&current_time)));
 
-	    ng::FontManager::ResourceFile = "resources.xml";		
-		ng::TextureManager::ResourceFile = "resources.xml";		
+        ng::FontManager::ResourceFile = "resources.xml";
+        ng::TextureManager::ResourceFile = "resources.xml";
 
-        ng::StateManager state_manager;        
+        ng::StateManager state_manager;
 
         state_manager.Initialize("Nostalgic Games", sf::VideoMode(1024, 768), false, maxFramerate);
-		state_manager.Start(IntroState::Instance());
+        state_manager.Start(IntroState::Instance());
 
         NG_LOG(argv[0] << " finished");
-	}
-	catch(std::exception& ex)
-	{
+    }
+    catch(std::exception& ex)
+    {
         NG_LOG(ex.what());
-		return_value = 1;
-	}
+        return_value = 1;
+    }
 
 #ifdef NG_DEBUG
 
     std::cerr.rdbuf(cerr_rdbuf);
-	log.close();
+    log.close();
 
 #endif
 
-	return return_value;
+    return return_value;
 }

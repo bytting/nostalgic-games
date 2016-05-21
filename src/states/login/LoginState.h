@@ -28,30 +28,30 @@ class LoginState : public ng::State
 {
 public:
 
-	void Enter(sf::RenderWindow& window);
-	void Exit(sf::RenderWindow& window);
+    void Enter(sf::RenderWindow& window);
+    void Exit(sf::RenderWindow& window);
 
-	void Pause();
-	void Resume();
+    void Pause();
+    void Resume();
 
-	void KeyPressed(sf::Event& event);
-	void KeyReleased(sf::Event& event);	
-	bool FrameRender(sf::RenderWindow& window, float frametime);
+    void KeyPressed(sf::Event& event);
+    void KeyReleased(sf::Event& event);
+    bool FrameRender(sf::RenderWindow& window, float frametime);
 
-	static LoginState* Instance() { return &gLoginState; }
+    static LoginState* Instance() { return &gLoginState; }
 
 protected:
 
-	LoginState() { }
+    LoginState() { }
 
 private:
 
-	static LoginState gLoginState;
+    static LoginState gLoginState;
 
-	ng::FontManager fontManager;
-	ng::StringManager stringManager;
+    ng::FontManager fontManager;
+    ng::StringManager stringManager;
 
-	sf::Text text;
+    sf::Text text;
 
     std::string info, username;
 

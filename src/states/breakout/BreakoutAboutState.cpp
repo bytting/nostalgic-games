@@ -25,7 +25,7 @@ BreakoutAboutState BreakoutAboutState::gBreakoutAboutState;
 
 void BreakoutAboutState::Enter(RenderWindow& window)
 {
-	Font& font = fontManager["arial"];
+    Font& font = fontManager["arial"];
 
     text.setFont(font);
     text.setCharacterSize(20);
@@ -47,11 +47,11 @@ void BreakoutAboutState::Resume()
 void BreakoutAboutState::KeyPressed(Event& event)
 {
     switch(event.key.code)
-	{
-	case Keyboard::Escape:
-		PopState();
-		break;	
-	}
+    {
+    case Keyboard::Escape:
+        PopState();
+        break;
+    }
 }
 
 void BreakoutAboutState::KeyReleased(Event& event)
@@ -65,6 +65,6 @@ bool BreakoutAboutState::FrameRender(RenderWindow& window, float frametime)
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 120);
     window.draw(text);
 
-	return false;
+    return false;
 }
 

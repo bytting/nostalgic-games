@@ -24,7 +24,7 @@ BreakoutPauseState BreakoutPauseState::gBreakoutPauseState;
 
 void BreakoutPauseState::Enter(RenderWindow& window)
 {
-	Font& font = fontManager["arial"];
+    Font& font = fontManager["arial"];
 
     text.setFont(font);
     text.setCharacterSize(20);
@@ -46,12 +46,11 @@ void BreakoutPauseState::Resume()
 void BreakoutPauseState::KeyPressed(Event& event)
 {
     switch(event.key.code)
-	{
-	case Keyboard::Escape:
-		PopState();
-		break;
-	default: break;
-	}
+    {
+    case Keyboard::Escape:
+        PopState();
+        break;
+    }
 }
 
 void BreakoutPauseState::KeyReleased(Event& event)
@@ -59,16 +58,16 @@ void BreakoutPauseState::KeyReleased(Event& event)
 }
 
 bool BreakoutPauseState::FrameRender(RenderWindow& window, float frametime)
-{	
+{
     text.setString("Breakout paused");
     text.setCharacterSize(40);
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 50);
     window.draw(text);
-	
+
     text.setString("Press ESCAPE to resume");
     text.setCharacterSize(20);
     text.setPosition(window.getSize().x / 2 - text.getGlobalBounds().width / 2, 120);
     window.draw(text);
 
-	return false;
+    return false;
 }
