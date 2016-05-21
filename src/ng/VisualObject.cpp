@@ -19,15 +19,8 @@ Copyright (c) 2010 Dag Robøle
 
 using namespace sf;
 
-namespace ng {
-
-FloatRect VisualObject::Rect() const
+namespace ng
 {
-    return FloatRect(mSprite.getPosition().x,
-                     mSprite.getPosition().y,
-                     mSprite.getPosition().x + mSprite.getGlobalBounds().width,
-                     mSprite.getPosition().y + mSprite.getGlobalBounds().height);
-}
 
 void VisualObject::SetCornerRadians(float ne, float nw, float sw, float se)
 {
@@ -39,34 +32,43 @@ void VisualObject::SetCornerRadians(float ne, float nw, float sw, float se)
 
 bool VisualObject::IsOriginInsideBrick(const VisualObject& object)
 {
-    return (CenterX() <= object.Right() && CenterX() >= object.Left() && CenterY() <= object.Bottom() && CenterY() >= object.Top());
+    return CenterX() <= object.Right()
+            && CenterX() >= object.Left()
+            && CenterY() <= object.Bottom()
+            && CenterY() >= object.Top();
 }
 
 void VisualObject::ProcessOriginImpactWithBrick(const VisualObject& object)
 {
-    float a = std::atan2(LastPositionCenterY() - object.CenterY(), LastPositionCenterX() - object.CenterX());
+    float a = std::atan2(LastPositionCenterY() - object.CenterY(),
+                         LastPositionCenterX() - object.CenterX());
 
-    if((a <= 0 && a > object.NE) || (a <= object.NW && a > -PI) || (a >= 0 && a < object.SE) || (a >= object.SW && a < PI))
+    if((a <= 0 && a > object.NE) || (a <= object.NW && a > -PI)
+            || (a >= 0 && a < object.SE) || (a >= object.SW && a < PI))
+    {
         Velocity.x *= -1;
+    }
     else if((a <= object.NE && a > object.NW) || (a >= object.SE && a < object.SW))
+    {
         Velocity.y *= -1;
+    }
 }
 
 bool VisualObject::IsBallOverlappingBall(const VisualObject& object)
 {
     // FIXME: Optimizations
-    float dx = object.mSprite.getPosition().x - mSprite.getPosition().x;
-    float dy = object.mSprite.getPosition().y - mSprite.getPosition().y;
-    return std::sqrt(dx * dx + dy * dy) <= mSprite.getGlobalBounds().width / 2 + object.mSprite.getGlobalBounds().width / 2;
+    float dx = object.Left() - Left();
+    float dy = object.Top() - Top();
+    return std::sqrt(dx * dx + dy * dy) <= Width() / 2.f + object.Width() / 2.f;
 }
 
 void VisualObject::ProcessBallImpactWithBall(VisualObject& object)
 {
     // FIXME: Optimizations
-    float dx = object.mSprite.getPosition().x - mSprite.getPosition().x;
-    float dy = object.mSprite.getPosition().y - mSprite.getPosition().y;
+    float dx = object.Left() - Left();
+    float dy = object.Top() - Top();
     float d = std::sqrt(dx * dx + dy * dy);
-    float impact_distance = mSprite.getGlobalBounds().width / 2 + object.mSprite.getGlobalBounds().width / 2;
+    float impact_distance = Width() / 2.f + object.Width() / 2.f;
 
     // calculate the velocity in the direction of (dx,dy)
     float vp_a = (Velocity.x * dx + Velocity.y * dy) / d;
@@ -79,8 +81,8 @@ void VisualObject::ProcessBallImpactWithBall(VisualObject& object)
     mSprite.move(-Velocity.x * dt, -Velocity.y * dt);
     object.mSprite.move(-object.Velocity.x * dt, -object.Velocity.y * dt);
 
-    dx = object.mSprite.getPosition().x - mSprite.getPosition().x;
-    dy = object.mSprite.getPosition().y - mSprite.getPosition().y;
+    dx = object.Left() - Left();
+    dy = object.Top() - Top();
     d = sqrt(dx * dx + dy * dy);
 
     // calculate the components of velocity
@@ -106,13 +108,13 @@ void VisualObject::ProcessBallImpactWithBall(VisualObject& object)
 
 void VisualObject::UpdateDestination(float frametime)
 {
-    mDestination = mSprite.getPosition() + Velocity * frametime;
+    mDestination = Position() + Velocity * frametime;
 }
 
 void VisualObject::MoveToDestination()
 {
-    LastPosition = mSprite.getPosition();
-    mSprite.setPosition(mDestination);
+    LastPosition = Position();
+    SetPosition(mDestination);
 }
 
 } // namespace ng

@@ -215,7 +215,7 @@ bool BreakoutState::FrameRender(RenderWindow& window, float frametime)
             window.draw(balls[i].Sprite());
 
     // Print status
-    text.setString(stringManager["username"] + " | Score " + ConvertToString(score));
+    text.setString(stringManager["username"] + " | Score " + ToString(score));
     text.setPosition(window.getSize().x - 100.f, float(window.getSize().y - text.getCharacterSize() - 4));
     window.draw(text);
 
@@ -223,9 +223,9 @@ bool BreakoutState::FrameRender(RenderWindow& window, float frametime)
     #ifdef NG_DEBUG
 
     float framerate = 1.f / frametime;
-    std::string debug_info = "FPS " + ConvertToString(framerate);
+    std::string debug_info = "FPS " + ToString(framerate);
     debug_info.resize(9, ' ');
-    text.setString(debug_info + " | Bricks left " + ConvertToString(remainingBricks));
+    text.setString(debug_info + " | Bricks left " + ToString(remainingBricks));
     text.setPosition(10.f, float(window.getSize().y - text.getCharacterSize() - 4));
     window.draw(text);
 
@@ -262,12 +262,12 @@ void BreakoutState::InitializeBreakout(RenderWindow& window)
     text.setCharacterSize(12);
     text.setColor(Color(255, 128, 0));
 
-    Texture& img_space01 = textureManager["breakout-space01"];
+    Texture& ImgSpace01 = textureManager["breakout-space01"];
 
-    spriteBackground.setTexture(img_space01);
+    spriteBackground.setTexture(ImgSpace01);
     spriteBackground.setTextureRect(IntRect(0, 0, window.getSize().x, window.getSize().y));
 
-    Texture& img_breakout = textureManager["breakout"];
+    Texture& ImgBreakout = textureManager["breakout"];
 
     float brick_NE = std::atan2((float)-BRICK_HEIGHT, (float)BRICK_WIDTH);
     float brick_NW = std::atan2((float)-BRICK_HEIGHT, (float)-BRICK_WIDTH);
@@ -287,7 +287,7 @@ void BreakoutState::InitializeBreakout(RenderWindow& window)
             bricks[i].resize(BRICK_COLS_MAX);
             bricks[i][j].Flags = Levels[i + currentLevel * BRICK_ROWS_MAX][j];
             bricks[i][j].SetCornerRadians(brick_NE, brick_NW, brick_SW, brick_SE);
-            bricks[i][j].SetSpriteTexture(img_breakout);
+            bricks[i][j].SetSpriteTexture(ImgBreakout);
             if(bricks[i][j].Flags == 1)
             {
                 bricks[i][j].SetImageRect(IntRect(0, BRICK_HEIGHT * i, BRICK_WIDTH, BRICK_HEIGHT));
@@ -322,7 +322,7 @@ void BreakoutState::InitializeBreakout(RenderWindow& window)
         //pads[i].flags = i ? 0 : OBJECT_ACTIVE;
         pads[i].Flags = OBJECT_ACTIVE;
         pads[i].SetCornerRadians(pad_NE, pad_NW, pad_SW, pad_SE);
-        pads[i].SetSpriteTexture(img_breakout);
+        pads[i].SetSpriteTexture(ImgBreakout);
         pads[i].SetImageRect(IntRect(PAD_LARGE_LEFT, PAD_LARGE_TOP, PAD_LARGE_WIDTH, PAD_LARGE_HEIGHT));
         pads[i].SetPosition(window.getSize().x / 2.f - PAD_LARGE_WIDTH / 2.f, window.getSize().y - 50.f);
         pads[i].Velocity = Vector2f(0.f, 0.f);
@@ -337,7 +337,7 @@ void BreakoutState::InitializeBreakout(RenderWindow& window)
     {
         //balls[i].flags = i ? 0 : OBJECT_ACTIVE;
         balls[i].Flags = OBJECT_ACTIVE;
-        balls[i].SetSpriteTexture(img_breakout);
+        balls[i].SetSpriteTexture(ImgBreakout);
         balls[i].SetImageRect(IntRect(BALL_MEDIUM_LEFT, BALL_MEDIUM_TOP, BALL_MEDIUM_WIDTH, BALL_MEDIUM_HEIGHT));
         balls[i].SetPosition(window.getSize().x / 2.f - BALL_MEDIUM_WIDTH / 2.f, window.getSize().y - 65.f);
         balls[i].Velocity = Vector2f(RandomFloatRange(-ballSpeed, ballSpeed), -ballSpeed);

@@ -22,7 +22,7 @@ Copyright (c) 2010 Dag Robøle
 #include <sstream>
 
 template<class T>
-std::string ConvertToString(const T& item)
+std::string ToString(const T& item)
 {
     std::stringstream ss;
     ss << item;

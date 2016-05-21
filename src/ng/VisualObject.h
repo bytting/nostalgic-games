@@ -25,7 +25,7 @@ namespace ng
 {
 
 #ifndef PI
-#define PI      3.1415927f
+#define PI      3.14159265358979323846
 #endif
 
 class VisualObject
@@ -40,39 +40,39 @@ public:
         NE(0.f), NW(0.f), SW(0.f), SE(0.f), mMass(10.f)
     {}
 
+    float Width() const { return (float)mSprite.getTextureRect().width; }
+
+    float Height() const { return (float)mSprite.getTextureRect().height; }
+
+    sf::Vector2f Size() const { return sf::Vector2f(Width(), Height()); }
+
+    float Left() const { return mSprite.getPosition().x; }
+
+    float Top() const { return mSprite.getPosition().y; }
+
+    float Right() const { return Left() + Width(); }
+
+    float Bottom() const { return Top() + Height(); }
+
+    sf::FloatRect Rect() const { return sf::FloatRect(Left(), Top(), Right(), Bottom()); }
+
+    void SetX(float newX) { mSprite.setPosition(newX, Top()); }
+
+    void SetY(float newY) { mSprite.setPosition(Left(), newY); }
+
     const sf::Vector2f& Position() const { return mSprite.getPosition(); }
 
     void SetPosition(const sf::Vector2f& newPos) { mSprite.setPosition(newPos); }
 
     void SetPosition(float newX, float newY) { mSprite.setPosition(newX, newY); }
 
-    void SetX(float newX) { mSprite.setPosition(newX, mSprite.getPosition().y); }
+    float CenterX() const { return Left() + Width() / 2.f; }
 
-    void SetY(float newY) { mSprite.setPosition(mSprite.getPosition().x, newY); }
+    float CenterY() const { return Top() + Height() / 2.f; }
 
-    float Left() const { return mSprite.getPosition().x; }
+    float LastPositionCenterX() const { return LastPosition.x + Width() / 2.f; }
 
-    float Top() const { return mSprite.getPosition().y; }
-
-    float Right() const { return mSprite.getPosition().x + mSprite.getTextureRect().width; }
-
-    float Bottom() const { return mSprite.getPosition().y + mSprite.getTextureRect().height; }
-
-    sf::FloatRect Rect() const;
-
-    sf::Vector2f Size() const { return sf::Vector2f((float)mSprite.getTextureRect().width, (float)mSprite.getTextureRect().height); }
-
-    float Width() const { return (float)mSprite.getTextureRect().width; }
-
-    float Height() const { return (float)mSprite.getTextureRect().height; }
-
-    float CenterX() const { return mSprite.getPosition().x + mSprite.getTextureRect().width / 2; }
-
-    float CenterY() const { return mSprite.getPosition().y + mSprite.getTextureRect().height / 2; }
-
-    float LastPositionCenterX() const { return LastPosition.x + mSprite.getTextureRect().width / 2; }
-
-    float LastPositionCenterY() const { return LastPosition.y + mSprite.getTextureRect().height / 2; }
+    float LastPositionCenterY() const { return LastPosition.y + Height() / 2.f; }
 
     void SetCornerRadians(float ne, float nw, float sw, float se);
 
