@@ -1,7 +1,7 @@
 
 # Nostalgic Games
 
-Collections of classic games from the old days, written in C++
+Collection of classic games from the old days, written in C++
 
 
 __Dependencies:__
